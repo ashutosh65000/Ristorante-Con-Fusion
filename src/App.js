@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './components/MenuComponent'
 import './App.css';
-import { DISHES } from './shared/dishes'
+import { DISHES } from './shared/dishes';
 
 class App extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class App extends Component {
       dishes: DISHES
     }
   }
+
   render() {
     return (
       <div>
