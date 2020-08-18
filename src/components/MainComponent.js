@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Home from './HomeComponent';
 import Header from './HeaderComponent';
 import Contact from './ContactComponent';
+import About from './AboutComponent';
 import Menu from './MenuComponent'
 import DishDetail from './DishdetailComponent'
 import Footer from './FooterComponent';
@@ -30,7 +31,7 @@ class Main extends Component {
                 />
             )
         }
-        
+
         const HomePage = () => {
             return (
                 <Home dish={this.state.dishes.filter((dish) => dish.featured)[0]}
@@ -49,6 +50,7 @@ class Main extends Component {
                     {/* If props are required then use the ES6 arrow function to pass the props. */}
                     <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />} />
                     <Route path="/menu/:dishId" component={DishWithId} />
+                    <Route exact path="/aboutus" component={() => <About leaders={this.state.leaders} />} />
                     <Route exact path="/contactus" component={Contact} />
                     {/* Redirect routes to the route path described if no matching route is found */}
                     <Redirect to="/home" />
