@@ -15,7 +15,7 @@ function RenderDish({ dish }) {
     );
 }
 
-function RenderComments({ comments }) {
+function RenderComments({ comments, addComment, dishId }) {
     let singleComment = comments.map(comment => {
         return (
             <li key={comment.id}>
@@ -32,7 +32,7 @@ function RenderComments({ comments }) {
             <ul className="list-unstyled">
                 {singleComment}
             </ul>
-            <CommentForm />
+            <CommentForm dishId={dishId} addComment={addComment} />
         </div>
     )
 }
@@ -64,7 +64,7 @@ const DishDetail = props => {
                         <RenderDish dish={props.dish} />
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <RenderComments comments={props.comments} />
+                        <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
                     </div>
                 </div>
             </div>
@@ -97,9 +97,7 @@ export class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-
-        console.log('comment:', values);
-        alert('comment:' + JSON.stringify(values));
+        this.props.addComment(this.props.dishId,values.rating,values.author,values.comment)
     }
 
     render() {
@@ -135,8 +133,8 @@ export class CommentForm extends Component {
                                 <Row className="form-group">
                                     <Label htmlFor="feedback" md={12}>Comment</Label>
                                     <Col md={12}>
-                                        <Control.textarea model=".message" id="message" name="message" rows="6" className="form-control" validators={{ required }} />
-                                        <Errors className="text-danger" model=".message" show="touched" messages={{ required: 'Required' }} />
+                                        <Control.textarea model=".comment" id="comment" name="comment" rows="6" className="form-control" validators={{ required }} />
+                                        <Errors className="text-danger" model=".comment" show="touched" messages={{ required: 'Required' }} />
                                     </Col>
                                 </Row>
                                 <Button type="submit" value="submit" color="primary">Submit</Button>
