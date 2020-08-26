@@ -38,7 +38,11 @@ function RenderComments({ comments }) {
 }
 
 const required = (val) => val && val.length;
-const maxLength = (len) => (val) => !(val) || (val.length <= len);
+// maxLength: maxLength(15) 15 is in len variable
+const maxLength = (len) => (val) => {
+    // console.log(len, val)
+    return (!(val) || (val.length <= len));
+}
 const minLength = (len) => (val) => val && (val.length >= len);
 
 const DishDetail = props => {
