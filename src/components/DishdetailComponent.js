@@ -17,7 +17,7 @@ function RenderDish({ dish }) {
     );
 }
 
-function RenderComments({ comments, addComment, dishId }) {
+function RenderComments({ comments, postComment, dishId }) {
     let singleComment = comments.map(comment => {
         return (
             <li key={comment.id}>
@@ -34,18 +34,10 @@ function RenderComments({ comments, addComment, dishId }) {
             <ul className="list-unstyled">
                 {singleComment}
             </ul>
-            <CommentForm dishId={dishId} addComment={addComment} />
+            <CommentForm dishId={dishId} postComment={postComment} />
         </div>
     )
 }
-
-const required = (val) => val && val.length;
-// maxLength: maxLength(15) 15 is in len variable
-const maxLength = (len) => (val) => {
-    // console.log(len, val)
-    return (!(val) || (val.length <= len));
-}
-const minLength = (len) => (val) => val && (val.length >= len);
 
 const DishDetail = props => {
     if (props.isLoading) {
@@ -84,7 +76,7 @@ const DishDetail = props => {
                         <RenderDish dish={props.dish} />
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
+                        <RenderComments comments={props.comments} postComment={props.postComment} dishId={props.dish.id} />
                     </div>
                 </div>
             </div>
@@ -98,6 +90,19 @@ const DishDetail = props => {
 }
 
 export default DishDetail;
+/*--------------------------------*--------------------------------*--------------------------------
+                                    DISH-DETAIL COMPONENT FINISHED
+--------------------------------*--------------------------------*--------------------------------*/
+
+//Comment Modal Form
+
+const required = (val) => val && val.length;
+// maxLength: maxLength(15) 15 is in len variable
+const maxLength = (len) => (val) => {
+    // console.log(len, val)
+    return (!(val) || (val.length <= len));
+}
+const minLength = (len) => (val) => val && (val.length >= len);
 
 export class CommentForm extends Component {
     constructor(props) {
@@ -117,7 +122,7 @@ export class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment)
     }
 
     render() {
